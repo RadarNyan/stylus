@@ -317,6 +317,8 @@ function saveStyle(style) {
 
   function write(style, store) {
     style.sections = normalizeStyleSections(style);
+    style.name = typeof style.name === 'string' && style.name.trim() ||
+      chrome.i18n.getMessage('styleMissingName');
     if (store) {
       return new Promise(resolve => {
         store.put(style).onsuccess = event => resolve(done(event));
